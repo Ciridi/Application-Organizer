@@ -27,8 +27,8 @@
 
 const CONFIG = {
   // Supabase Dashboard -> Project Settings / API
-  SUPABASE_URL: "https://jjrvymojfidmhcawxfjx.supabase.co",
-  SUPABASE_PUBLISHABLE_KEY: "sb_publishable_qgIZCyB101ZjmGCAhP283w_JHc4mQts",
+  SUPABASE_URL: "https://YOUR_PROJECT_REF.supabase.co",
+  SUPABASE_PUBLISHABLE_KEY: "YOUR_SUPABASE_PUBLISHABLE_KEY",
 
   // Edge Function names that will be created next.
   EXTRACT_FUNCTION: "extract-job",
