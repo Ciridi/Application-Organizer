@@ -1,0 +1,9 @@
+# Merge these entries into your existing supabase/config.toml if they are not
+# already present. Keep JWT verification enabled: these are user-authenticated
+# functions called through supabase.functions.invoke().
+
+[functions.extract-job]
+verify_jwt = true
+
+[functions.google-sheets]
+verify_jwt = true
