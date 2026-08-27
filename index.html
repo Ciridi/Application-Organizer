@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
     name="description"
-    content="Stepping Stones is a job application tracker that extracts job posting details and keeps each user's applications organized."
+    content="Waystones is a job application tracker that extracts job posting details and keeps each user's applications organized."
   />
-  <title>Stepping Stones | Job Application Tracker</title>
+  <title>Waystones | Job Application Tracker</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,28 +16,22 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20260827-ui-v3" />
 </head>
 
 <body>
-  <!-- ======================================================
-       LOGIN SCREEN
-       Supabase owns the application session.
-       Google is the OAuth provider and also grants permission
-       for the future server-side Google Sheets integration.
-       ====================================================== -->
   <main id="loginScreen" class="login-screen">
     <section class="login-card">
       <div class="brand brand-centered">
         <div class="brand-mark">S</div>
-        <span>Stepping Stones</span>
+        <span>Waystones</span>
       </div>
 
       <div class="login-copy">
         <p class="eyebrow">JOB APPLICATION TRACKER</p>
         <h1>Turn every application into a next step.</h1>
         <p class="muted">
-          Sign in with Google to securely access your Stepping Stones account,
+          Sign in with Google to securely access your Waystones account,
           track applications, and connect your personal Google Sheet.
         </p>
       </div>
@@ -51,20 +45,20 @@
 
       <p class="small-print">
         Authentication is handled by Supabase. Google Sheets access is requested
-        only so Stepping Stones can create and sync your application spreadsheet.
+        only so Waystones can create and sync your application spreadsheet.
+      </p>
+
+      <p class="build-marker">
+        Bug-test UI v3 · sync / edit / delete / status controls load after sign-in
       </p>
     </section>
   </main>
 
-  <!-- ======================================================
-       MAIN APPLICATION
-       Hidden until a Supabase session exists.
-       ====================================================== -->
   <div id="appShell" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
         <div class="brand-mark">S</div>
-        <span>Stepping Stones</span>
+        <span>Waystones</span>
       </div>
 
       <div class="topbar-actions">
@@ -88,31 +82,49 @@
           <p class="eyebrow">APPLICATION WORKSPACE</p>
           <h1>Track a new opportunity.</h1>
           <p class="muted hero-copy">
-            Paste a job posting URL. Stepping Stones will send it to your parser,
+            Paste a job posting URL. Waystones will send it to your parser,
             return the detected information, and let you correct anything before
             saving it to your account.
           </p>
         </div>
 
         <div class="sheet-card">
-          <span class="sheet-label">Google Sheets sync</span>
+          <div class="sheet-card-heading">
+            <span class="sheet-label">Google Sheets sync</span>
+
+            <button
+              id="forceSyncButton"
+              class="icon-button sync-icon-button"
+              type="button"
+              aria-label="Force sync all applications to Google Sheets"
+              title="Force sync all applications"
+            >
+              <span aria-hidden="true">↻</span>
+            </button>
+          </div>
+
           <strong id="sheetName">Checking connection...</strong>
+
           <span id="sheetStatus" class="sheet-status">
             Your Supabase account is the primary data store.
           </span>
-          <a
-            id="sheetLink"
-            href="#"
-            target="_blank"
-            rel="noreferrer"
-            class="text-link hidden"
-          >
-            Open in Google Sheets
-          </a>
+
+          <div class="sheet-card-links">
+            <a
+              id="sheetLink"
+              href="#"
+              target="_blank"
+              rel="noreferrer"
+              class="text-link hidden"
+            >
+              Open in Google Sheets
+            </a>
+
+            <span id="syncDebugId" class="debug-id hidden"></span>
+          </div>
         </div>
       </section>
 
-      <!-- URL extraction input -->
       <section class="panel">
         <div class="panel-heading">
           <div>
@@ -144,13 +156,12 @@
         </form>
       </section>
 
-      <!-- Editable extraction results -->
       <section id="resultPanel" class="panel hidden">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">STEP 2</p>
-            <h2>Review extracted details</h2>
-            <p class="muted">
+            <p id="reviewEyebrow" class="eyebrow">STEP 2</p>
+            <h2 id="reviewTitle">Review extracted details</h2>
+            <p id="reviewDescription" class="muted">
               Everything below is editable before it is saved.
             </p>
           </div>
@@ -236,12 +247,14 @@
         </form>
       </section>
 
-      <!-- Applications are loaded from Supabase for the current user. -->
       <section class="panel">
         <div class="panel-heading">
           <div>
             <p class="eyebrow">YOUR APPLICATIONS</p>
             <h2>Recently tracked</h2>
+            <p class="muted application-help">
+              Change status inline. Hover a row to reveal edit and delete.
+            </p>
           </div>
         </div>
 
@@ -254,11 +267,12 @@
                 <th>Status</th>
                 <th>Date</th>
                 <th>Location</th>
+                <th class="actions-heading"><span class="sr-only">Actions</span></th>
               </tr>
             </thead>
             <tbody id="recentJobsBody">
               <tr class="empty-row">
-                <td colspan="5">Sign in to load your applications.</td>
+                <td colspan="6">Sign in to load your applications.</td>
               </tr>
             </tbody>
           </table>
@@ -267,8 +281,8 @@
     </main>
   </div>
 
-  <!-- Supabase JavaScript client for this static Cloudflare frontend. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=20260827-ui-v3"></script>
+  <script src="qol.js"></script>
 </body>
 </html>
