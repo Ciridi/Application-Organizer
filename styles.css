@@ -627,3 +627,14 @@ th {
 
   .form-actions .button { width: 100%; }
 }
+
+
+/* ---------- Temporary bug-test build marker ---------- */
+.build-marker {
+  margin: 12px 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.4;
+  opacity: 0.75;
+}

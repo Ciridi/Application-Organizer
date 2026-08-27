@@ -16,7 +16,7 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20260827-ui-v3" />
 </head>
 
 <body>
@@ -46,6 +46,10 @@
       <p class="small-print">
         Authentication is handled by Supabase. Google Sheets access is requested
         only so Stepping Stones can create and sync your application spreadsheet.
+      </p>
+
+      <p class="build-marker">
+        Bug-test UI v3 · sync / edit / delete / status controls load after sign-in
       </p>
     </section>
   </main>
@@ -278,6 +282,6 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=20260827-ui-v3"></script>
 </body>
 </html>
