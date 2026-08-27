@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
     name="description"
-    content="Waystones is a job application tracker that extracts job posting details and keeps each user's applications organized."
+    content="Waystones is a job application tracker that extracts job posting details, keeps applications organized, and syncs a user-controlled Google Sheet."
   />
+  <meta name="theme-color" content="#f5f7fb" />
   <title>Waystones | Job Application Tracker</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,48 +17,201 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="styles.css?v=20260827-ui-v3" />
+  <link rel="stylesheet" href="styles.css?v=20260827-public-v1" />
 </head>
 
 <body>
-  <main id="loginScreen" class="login-screen">
-    <section class="login-card">
-      <div class="brand brand-centered">
-        <div class="brand-mark">S</div>
+  <div id="loginScreen" class="public-site">
+    <header class="landing-nav">
+      <a class="brand brand-link" href="index.html" aria-label="Waystones home">
+        <div class="brand-mark">W</div>
         <span>Waystones</span>
+      </a>
+
+      <nav class="landing-nav-links" aria-label="Public navigation">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#data-access">Data access</a>
+        <a href="support.html">Support</a>
+      </nav>
+
+      <a class="button button-secondary nav-cta" href="#get-started">Get started</a>
+    </header>
+
+    <main>
+      <section class="landing-hero-section">
+        <div class="landing-container landing-hero-grid">
+          <div class="landing-hero-copy">
+            <p class="eyebrow">JOB APPLICATION TRACKER</p>
+            <h1>Keep every opportunity on the path forward.</h1>
+            <p class="landing-lede">
+              Waystones helps you capture job postings, review the details, track application status,
+              and keep a personal Google Sheet synchronized with your application history.
+            </p>
+
+            <div class="landing-actions" id="get-started">
+              <button id="googleLoginButton" class="button google-button landing-google-button" type="button">
+                <span class="google-icon" aria-hidden="true">G</span>
+                Continue with Google
+              </button>
+              <a class="button button-secondary" href="#how-it-works">See how it works</a>
+            </div>
+
+            <p id="loginStatus" class="status-message landing-login-status" aria-live="polite"></p>
+
+            <p class="landing-consent-copy">
+              By continuing, you agree to the <a href="terms.html">Terms of Service</a> and acknowledge
+              the <a href="privacy.html">Privacy Policy</a>. Google access is used only to authenticate
+              you and create or synchronize the Waystones spreadsheet associated with your account.
+            </p>
+          </div>
+
+          <aside class="product-preview" aria-label="Waystones workflow preview">
+            <div class="preview-window">
+              <div class="preview-topline">
+                <span class="preview-dot"></span>
+                <span class="preview-dot"></span>
+                <span class="preview-dot"></span>
+                <span class="preview-title">Application workspace</span>
+              </div>
+
+              <div class="preview-card">
+                <span class="preview-label">PASTE A JOB POSTING</span>
+                <div class="preview-input">company.com/careers/software-engineer</div>
+                <div class="preview-flow">
+                  <span>Extract</span>
+                  <span>Review</span>
+                  <span>Save</span>
+                  <span>Sync</span>
+                </div>
+              </div>
+
+              <div class="preview-table">
+                <div class="preview-row preview-row-head">
+                  <span>Company</span><span>Role</span><span>Status</span>
+                </div>
+                <div class="preview-row">
+                  <strong>Northstar</strong><span>Software Engineer</span><span class="preview-status">Applied</span>
+                </div>
+                <div class="preview-row">
+                  <strong>Acorn Labs</strong><span>Developer Intern</span><span class="preview-status">Interview</span>
+                </div>
+              </div>
+
+              <div class="preview-sync">
+                <span class="preview-check">✓</span>
+                <div>
+                  <strong>Google Sheets connected</strong>
+                  <span>Applications stay synchronized.</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="features" class="landing-section">
+        <div class="landing-container">
+          <div class="section-intro">
+            <p class="eyebrow">WHAT WAYSTONES DOES</p>
+            <h2>A simple workspace for the part after “Apply.”</h2>
+            <p>Keep the useful details together without maintaining another complicated system.</p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="feature-number">01</span>
+              <h3>Extract job details</h3>
+              <p>Paste a public job-posting URL and Waystones attempts to identify the company, role, location, salary, and source.</p>
+            </article>
+
+            <article class="feature-card">
+              <span class="feature-number">02</span>
+              <h3>Review before saving</h3>
+              <p>Parser results stay editable. You decide what gets stored, including status, date applied, notes, and corrections.</p>
+            </article>
+
+            <article class="feature-card">
+              <span class="feature-number">03</span>
+              <h3>Keep a Sheet in sync</h3>
+              <p>Waystones stores your application workspace in its database and maintains a synchronized Google Sheet for portability.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="landing-section landing-section-soft">
+        <div class="landing-container how-grid">
+          <div class="section-intro section-intro-left">
+            <p class="eyebrow">HOW IT WORKS</p>
+            <h2>From job link to organized record.</h2>
+            <p>Waystones is designed around a short, reviewable workflow rather than automatic applications or background submissions.</p>
+          </div>
+
+          <ol class="workflow-list">
+            <li><strong>Sign in with Google.</strong><span>Your Google account authenticates you and authorizes the spreadsheet connection.</span></li>
+            <li><strong>Paste a posting.</strong><span>Waystones reads the public page when the source allows it. Some job boards may block or limit parsing.</span></li>
+            <li><strong>Check the result.</strong><span>Correct anything that was incomplete or inaccurate before saving.</span></li>
+            <li><strong>Track your progress.</strong><span>Update application status, edit notes, remove records, and keep your Waystones-managed Sheet synchronized.</span></li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="data-access" class="landing-section">
+        <div class="landing-container data-access-grid">
+          <div>
+            <p class="eyebrow">GOOGLE DATA ACCESS</p>
+            <h2>Limited access, for a specific purpose.</h2>
+            <p class="landing-lede compact-lede">
+              Waystones requests the Google <code>drive.file</code> scope so it can create and update
+              the spreadsheet it uses for your account. It does not request broad access to all files in your Google Drive.
+            </p>
+          </div>
+
+          <div class="data-points">
+            <div><strong>Authentication</strong><span>Basic Google account information is used to sign you in and identify your Waystones account.</span></div>
+            <div><strong>Spreadsheet sync</strong><span>Your saved application records are written to the Waystones spreadsheet created for your account.</span></div>
+            <div><strong>Server-side connection</strong><span>The long-lived Google refresh credential used for sync is stored encrypted on the server rather than exposed in the page.</span></div>
+            <div><strong>Your control</strong><span>You can remove applications, revoke Google access, and request deletion of your Waystones account data.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="landing-section landing-cta-section">
+        <div class="landing-container landing-cta-card">
+          <div>
+            <p class="eyebrow">READY TO TRACK?</p>
+            <h2>Make the next application easier to find later.</h2>
+            <p>For the most reliable job details, it is best practice to apply through the hiring company’s own career site.</p>
+          </div>
+          <a class="button button-primary" href="#get-started">Get started with Google</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="public-footer">
+      <div class="landing-container public-footer-inner">
+        <div>
+          <div class="brand">
+            <div class="brand-mark">W</div>
+            <span>Waystones</span>
+          </div>
+          <p>Job application tracking with a user-controlled Google Sheets sync.</p>
+        </div>
+
+        <nav aria-label="Legal and support links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="support.html">Support &amp; Data Deletion</a>
+        </nav>
       </div>
-
-      <div class="login-copy">
-        <p class="eyebrow">JOB APPLICATION TRACKER</p>
-        <h1>Turn every application into a next step.</h1>
-        <p class="muted">
-          Sign in with Google to securely access your Waystones account,
-          track applications, and connect your personal Google Sheet.
-        </p>
-      </div>
-
-      <button id="googleLoginButton" class="button google-button" type="button">
-        <span class="google-icon">G</span>
-        Continue with Google
-      </button>
-
-      <p id="loginStatus" class="status-message" aria-live="polite"></p>
-
-      <p class="small-print">
-        Authentication is handled by Supabase. Google Sheets access is requested
-        only so Waystones can create and sync your application spreadsheet.
-      </p>
-
-      <p class="build-marker">
-        Bug-test UI v3 · sync / edit / delete / status controls load after sign-in
-      </p>
-    </section>
-  </main>
+    </footer>
+  </div>
 
   <div id="appShell" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-mark">S</div>
+        <div class="brand-mark">W</div>
         <span>Waystones</span>
       </div>
 
@@ -279,6 +433,17 @@
         </div>
       </section>
     </main>
+
+    <footer class="app-footer">
+      <div class="app-footer-inner">
+        <span>Waystones · Job application tracking with Google Sheets sync</span>
+        <nav aria-label="Application legal links">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="support.html">Support &amp; data deletion</a>
+        </nav>
+      </div>
+    </footer>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
