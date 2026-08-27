@@ -535,3 +535,20 @@ th {
     width: 100%;
   }
 }
+
+
+/* ---------- Stepping Stones integration status ---------- */
+
+.sheet-status {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.sheet-status.success {
+  color: var(--success);
+}
+
+.sheet-status.error {
+  color: var(--danger);
+}
