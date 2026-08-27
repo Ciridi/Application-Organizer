@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Waystones Privacy Policy, including how Google account information, Google Sheets access, and job application data are handled." />
+  <meta name="theme-color" content="#f5f7fb" />
+  <title>Privacy Policy | Waystones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=20260827-public-v1" />
+</head>
+<body>
+  <div class="legal-shell">
+    <header class="legal-header">
+      <div class="legal-header-inner">
+        <a class="brand brand-link" href="index.html" aria-label="Waystones home">
+          <div class="brand-mark">W</div>
+          <span>Waystones</span>
+        </a>
+        <a class="legal-back-link" href="index.html">← Back to Waystones</a>
+      </div>
+    </header>
+
+    <main class="legal-page">
+      <section class="legal-hero">
+        <p class="eyebrow">WAYSTONES</p>
+        <h1>Privacy Policy</h1>
+        <p>This policy explains what information Waystones accesses, why it is used, where it is stored, and the choices available to you.</p>
+        <div class="legal-meta">Effective and last updated: August 27, 2026</div>
+      </section>
+
+      <div class="legal-notice">
+        Waystones is a job application tracking service. This policy is written for the current Waystones implementation and should be updated whenever the product's data practices, service providers, or Google permissions change.
+      </div>
+
+      <section class="legal-section">
+        <h2>1. Information Waystones processes</h2>
+        <h3>Google account information</h3>
+        <p>When you sign in with Google, Waystones receives basic account information used for authentication, such as your Google account email address, display name, profile image when available, and account identifiers required to associate your session with your Waystones account.</p>
+
+        <h3>Google authorization information</h3>
+        <p>Waystones requests authorization needed to create and synchronize the Google spreadsheet used by the service. The current application requests the <code>https://www.googleapis.com/auth/drive.file</code> scope rather than broad access to all files in your Google Drive.</p>
+        <p>A Google access token may be used temporarily to establish the connection. When Google supplies a refresh token, Waystones stores that long-lived credential encrypted on the server so that authorized spreadsheet synchronization can continue without requiring you to approve every update.</p>
+
+        <h3>Job application information</h3>
+        <p>Information you choose to save can include company name, position, application status, application date, location, salary information, job-posting URL, source, notes, timestamps, and identifiers used to synchronize records with Google Sheets.</p>
+
+        <h3>Job-posting content</h3>
+        <p>When you submit a job-posting URL for extraction, Waystones sends that URL to its server-side parser, which attempts to read the publicly accessible page and return relevant job details. Some sites may block automated retrieval or return incomplete information.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>2. How Waystones uses Google user data</h2>
+        <p>Google user data is used only to provide user-facing Waystones functionality, including:</p>
+        <ul>
+          <li>authenticating you and associating your Google identity with your Waystones account;</li>
+          <li>creating the Waystones job-application spreadsheet for your account;</li>
+          <li>writing, updating, reconciling, and removing Waystones-managed application rows in that spreadsheet; and</li>
+          <li>maintaining the authorized Google connection required for those synchronization features.</li>
+        </ul>
+        <p>Waystones does not request broad permission to browse all files in your Google Drive and does not use Google user data for targeted advertising.</p>
+
+        <div class="legal-callout">
+          Waystones' use and transfer of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements.
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>3. Where information is stored</h2>
+        <p>Waystones uses Supabase for authentication and its primary application database. Saved application records, user settings, and spreadsheet identifiers are stored there. The Google refresh credential used for ongoing synchronization is stored encrypted in a server-only connection record.</p>
+        <p>The synchronized spreadsheet is stored in your own Google Drive and remains subject to your Google account settings and Google's terms and policies. Authentication/session data may also be stored in your browser as necessary for Supabase Auth to keep you signed in.</p>
+        <p>The public frontend may be delivered through Cloudflare infrastructure. Google and Supabase also process information as necessary to provide their respective authentication, API, database, and hosting-related services.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>4. Sharing and disclosure</h2>
+        <p>Waystones does not sell your Google user data. Information may be processed by service providers only as needed to operate Waystones, including Google for authentication and Google Sheets, Supabase for authentication/database/server functions, and Cloudflare for delivery of the public site when hosted there.</p>
+        <p>Waystones may also disclose information when required by law, to protect the security or integrity of the service, or with your direction or consent.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>5. Your Google Drive and spreadsheet</h2>
+        <p>The Google Sheet created for Waystones belongs to your Google account. Waystones uses the authorization you grant to update the file for application tracking. You can open, edit, move, or delete the Sheet through Google Drive, although manually changing its structure may interfere with synchronization.</p>
+        <p>Revoking Waystones' Google authorization prevents future authorized Google API access, but revocation by itself does not automatically delete data already stored in Waystones or delete the spreadsheet already present in your Google Drive.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>6. Retention and deletion</h2>
+        <p>Application records remain in Waystones until you delete them or request deletion of your account data. When you delete an application in Waystones, the service removes the primary database record and attempts to reconcile the managed Google Sheet. If Google synchronization is temporarily unavailable, a copy may remain in the Sheet until synchronization succeeds or you remove it directly.</p>
+        <p>You may request deletion of your Waystones account data through the <a href="support.html#data-deletion">Support &amp; Data Deletion page</a>. Deleting Waystones-side account data does not automatically delete a Google Sheet that is already stored in your Drive; you can delete that file directly from Google Drive.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>7. Security</h2>
+        <p>Waystones uses reasonable technical safeguards appropriate to the current service, including authenticated database access, row-level authorization controls, HTTPS in production, server-side handling of Google synchronization, and encrypted storage of the long-lived Google refresh credential. No online service can guarantee absolute security.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>8. Your choices</h2>
+        <ul>
+          <li>You can edit or delete individual application records in Waystones.</li>
+          <li>You can edit or delete the synchronized spreadsheet directly in Google Drive.</li>
+          <li>You can revoke Waystones' Google access from your Google Account's connected-app settings.</li>
+          <li>You can request deletion of your Waystones account data through the support process.</li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2>9. Children's privacy</h2>
+        <p>Waystones is not directed to children under 13, and the service is not intended to knowingly collect personal information from children under 13.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>10. Changes to this policy</h2>
+        <p>If Waystones materially changes how it accesses, uses, stores, or shares user information, this policy will be updated and the “last updated” date above will be revised. Google-data practices will remain limited to the permissions and disclosures presented to users.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>11. Contact</h2>
+        <p>Privacy, support, and data-deletion requests should be sent to the Waystones support contact:</p>
+        <p><span class="support-email-placeholder">support@YOUR-DOMAIN.example</span></p>
+        <p>This placeholder must be replaced with a monitored email address before the production OAuth application is submitted for verification.</p>
+      </section>
+    </main>
+
+    <footer class="public-footer">
+      <div class="landing-container public-footer-inner">
+        <div>
+          <div class="brand"><div class="brand-mark">W</div><span>Waystones</span></div>
+          <p>Job application tracking with a user-controlled Google Sheets sync.</p>
+        </div>
+        <nav aria-label="Legal and support links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="support.html">Support &amp; Data Deletion</a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

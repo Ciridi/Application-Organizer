@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Waystones support, troubleshooting, Google access revocation, and account data deletion information." />
+  <meta name="theme-color" content="#f5f7fb" />
+  <title>Support & Data Deletion | Waystones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=20260827-public-v1" />
+</head>
+<body>
+  <div class="legal-shell">
+    <header class="legal-header">
+      <div class="legal-header-inner">
+        <a class="brand brand-link" href="index.html" aria-label="Waystones home">
+          <div class="brand-mark">W</div>
+          <span>Waystones</span>
+        </a>
+        <a class="legal-back-link" href="index.html">← Back to Waystones</a>
+      </div>
+    </header>
+
+    <main class="legal-page">
+      <section class="legal-hero">
+        <p class="eyebrow">WAYSTONES SUPPORT</p>
+        <h1>Support &amp; Data Deletion</h1>
+        <p>Get help with sign-in, job parsing, Google Sheets synchronization, account access, or deletion of data associated with your Waystones account.</p>
+        <div class="legal-meta">Last updated: August 27, 2026</div>
+      </section>
+
+      <section class="legal-section">
+        <h2>Contact support</h2>
+        <p>Contact Waystones using the same email address you use to sign in whenever the request involves account access or deletion:</p>
+        <p><span class="support-email-placeholder">support@YOUR-DOMAIN.example</span></p>
+        <p>This placeholder must be replaced with your monitored production support email before Google OAuth verification.</p>
+
+        <div class="support-grid">
+          <article class="support-card">
+            <h3>Google sign-in</h3>
+            <p>If sign-in fails, confirm that popups/redirects are allowed and that you are using the intended Google account. OAuth errors can also occur if the production domain or redirect URLs are not configured correctly.</p>
+          </article>
+          <article class="support-card">
+            <h3>Job parsing</h3>
+            <p>Some job sites restrict automated access. You can still review and manually correct the extracted fields. For reliable application details, prefer the hiring company's own career page.</p>
+          </article>
+          <article class="support-card">
+            <h3>Google Sheets sync</h3>
+            <p>If your Sheet stops synchronizing, sign out and reconnect Google if prompted. Do not remove or heavily restructure the managed sheet if you want automatic synchronization to continue.</p>
+          </article>
+          <article class="support-card">
+            <h3>Privacy questions</h3>
+            <p>Review the <a href="privacy.html">Privacy Policy</a> for the categories of information Waystones accesses, how Google data is used, and how credentials are stored.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="data-deletion" class="legal-section">
+        <h2>Request deletion of Waystones account data</h2>
+        <p>To request deletion, email the support address above from the same Google account used to sign in to Waystones and use the subject line <strong>Waystones Data Deletion Request</strong>.</p>
+        <p>After account ownership is verified, the deletion process should remove Waystones-side records associated with the account, including saved application records, account settings, and the stored Google connection credential.</p>
+        <div class="legal-callout">
+          A Google Sheet already created in your Google Drive is controlled by your Google account and is not automatically deleted when Waystones-side data is removed. Delete that file directly from Google Drive if you also want the spreadsheet removed.
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>Revoke Google access</h2>
+        <p>You can revoke Waystones' Google authorization at any time from your Google Account's third-party connections page. Revoking access prevents future authorized Google API use but does not itself delete Waystones database records or files already stored in your Drive.</p>
+        <p><a href="https://myaccount.google.com/connections" target="_blank" rel="noopener noreferrer">Open Google Account connections ↗</a></p>
+      </section>
+
+      <section class="legal-section">
+        <h2>Delete an individual application</h2>
+        <p>While signed in, use the delete control on the application row. Waystones deletes the database record and attempts to reconcile the synchronized Google Sheet. If Sheets is temporarily unavailable, verify the Sheet later or remove the row manually.</p>
+      </section>
+    </main>
+
+    <footer class="public-footer">
+      <div class="landing-container public-footer-inner">
+        <div>
+          <div class="brand"><div class="brand-mark">W</div><span>Waystones</span></div>
+          <p>Job application tracking with a user-controlled Google Sheets sync.</p>
+        </div>
+        <nav aria-label="Legal and support links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="support.html">Support &amp; Data Deletion</a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
