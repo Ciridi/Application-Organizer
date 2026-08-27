@@ -20,12 +20,6 @@
 </head>
 
 <body>
-  <!-- ======================================================
-       LOGIN SCREEN
-       Supabase owns the application session.
-       Google is the OAuth provider and also grants permission
-       for the future server-side Google Sheets integration.
-       ====================================================== -->
   <main id="loginScreen" class="login-screen">
     <section class="login-card">
       <div class="brand brand-centered">
@@ -56,10 +50,6 @@
     </section>
   </main>
 
-  <!-- ======================================================
-       MAIN APPLICATION
-       Hidden until a Supabase session exists.
-       ====================================================== -->
   <div id="appShell" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
@@ -95,24 +85,42 @@
         </div>
 
         <div class="sheet-card">
-          <span class="sheet-label">Google Sheets sync</span>
+          <div class="sheet-card-heading">
+            <span class="sheet-label">Google Sheets sync</span>
+
+            <button
+              id="forceSyncButton"
+              class="icon-button sync-icon-button"
+              type="button"
+              aria-label="Force sync all applications to Google Sheets"
+              title="Force sync all applications"
+            >
+              <span aria-hidden="true">↻</span>
+            </button>
+          </div>
+
           <strong id="sheetName">Checking connection...</strong>
+
           <span id="sheetStatus" class="sheet-status">
             Your Supabase account is the primary data store.
           </span>
-          <a
-            id="sheetLink"
-            href="#"
-            target="_blank"
-            rel="noreferrer"
-            class="text-link hidden"
-          >
-            Open in Google Sheets
-          </a>
+
+          <div class="sheet-card-links">
+            <a
+              id="sheetLink"
+              href="#"
+              target="_blank"
+              rel="noreferrer"
+              class="text-link hidden"
+            >
+              Open in Google Sheets
+            </a>
+
+            <span id="syncDebugId" class="debug-id hidden"></span>
+          </div>
         </div>
       </section>
 
-      <!-- URL extraction input -->
       <section class="panel">
         <div class="panel-heading">
           <div>
@@ -144,13 +152,12 @@
         </form>
       </section>
 
-      <!-- Editable extraction results -->
       <section id="resultPanel" class="panel hidden">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">STEP 2</p>
-            <h2>Review extracted details</h2>
-            <p class="muted">
+            <p id="reviewEyebrow" class="eyebrow">STEP 2</p>
+            <h2 id="reviewTitle">Review extracted details</h2>
+            <p id="reviewDescription" class="muted">
               Everything below is editable before it is saved.
             </p>
           </div>
@@ -236,12 +243,14 @@
         </form>
       </section>
 
-      <!-- Applications are loaded from Supabase for the current user. -->
       <section class="panel">
         <div class="panel-heading">
           <div>
             <p class="eyebrow">YOUR APPLICATIONS</p>
             <h2>Recently tracked</h2>
+            <p class="muted application-help">
+              Change status inline. Hover a row to reveal edit and delete.
+            </p>
           </div>
         </div>
 
@@ -254,11 +263,12 @@
                 <th>Status</th>
                 <th>Date</th>
                 <th>Location</th>
+                <th class="actions-heading"><span class="sr-only">Actions</span></th>
               </tr>
             </thead>
             <tbody id="recentJobsBody">
               <tr class="empty-row">
-                <td colspan="5">Sign in to load your applications.</td>
+                <td colspan="6">Sign in to load your applications.</td>
               </tr>
             </tbody>
           </table>
@@ -267,7 +277,6 @@
     </main>
   </div>
 
-  <!-- Supabase JavaScript client for this static Cloudflare frontend. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
 </body>
