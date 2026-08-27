@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
     name="description"
-    content="A simple job application tracker that extracts job posting details and saves them to Google Sheets."
+    content="Stepping Stones is a job application tracker that extracts job posting details and keeps each user's applications organized."
   />
-  <title>ApplyTrack | Job Application Tracker</title>
+  <title>Stepping Stones | Job Application Tracker</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,22 +22,23 @@
 <body>
   <!-- ======================================================
        LOGIN SCREEN
-       Later, Supabase Auth can replace or supplement this UI.
-       Google OAuth is still needed to access each user's Sheet.
+       Supabase owns the application session.
+       Google is the OAuth provider and also grants permission
+       for the future server-side Google Sheets integration.
        ====================================================== -->
   <main id="loginScreen" class="login-screen">
     <section class="login-card">
       <div class="brand brand-centered">
-        <div class="brand-mark">A</div>
-        <span>ApplyTrack</span>
+        <div class="brand-mark">S</div>
+        <span>Stepping Stones</span>
       </div>
 
       <div class="login-copy">
         <p class="eyebrow">JOB APPLICATION TRACKER</p>
-        <h1>Keep every application in one place.</h1>
+        <h1>Turn every application into a next step.</h1>
         <p class="muted">
-          Sign in with Google to connect your account and create or access
-          your personal application spreadsheet.
+          Sign in with Google to securely access your Stepping Stones account,
+          track applications, and connect your personal Google Sheet.
         </p>
       </div>
 
@@ -49,21 +50,21 @@
       <p id="loginStatus" class="status-message" aria-live="polite"></p>
 
       <p class="small-print">
-        Your Google access token is kept in memory for this session. Supabase
-        user authentication can be added later without changing the tracker UI.
+        Authentication is handled by Supabase. Google Sheets access is requested
+        only so Stepping Stones can create and sync your application spreadsheet.
       </p>
     </section>
   </main>
 
   <!-- ======================================================
        MAIN APPLICATION
-       Hidden until the user authenticates with Google.
+       Hidden until a Supabase session exists.
        ====================================================== -->
   <div id="appShell" class="app-shell hidden">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-mark">A</div>
-        <span>ApplyTrack</span>
+        <div class="brand-mark">S</div>
+        <span>Stepping Stones</span>
       </div>
 
       <div class="topbar-actions">
@@ -87,15 +88,18 @@
           <p class="eyebrow">APPLICATION WORKSPACE</p>
           <h1>Track a new opportunity.</h1>
           <p class="muted hero-copy">
-            Paste a job posting URL. ApplyTrack will send it to your parser,
-            return the detected information, and let you correct anything
-            before saving it to your Google Sheet.
+            Paste a job posting URL. Stepping Stones will send it to your parser,
+            return the detected information, and let you correct anything before
+            saving it to your account.
           </p>
         </div>
 
         <div class="sheet-card">
-          <span class="sheet-label">Connected spreadsheet</span>
-          <strong id="sheetName">Not connected yet</strong>
+          <span class="sheet-label">Google Sheets sync</span>
+          <strong id="sheetName">Checking connection...</strong>
+          <span id="sheetStatus" class="sheet-status">
+            Your Supabase account is the primary data store.
+          </span>
           <a
             id="sheetLink"
             href="#"
@@ -147,7 +151,7 @@
             <p class="eyebrow">STEP 2</p>
             <h2>Review extracted details</h2>
             <p class="muted">
-              Everything below is editable before it is written to your spreadsheet.
+              Everything below is editable before it is saved.
             </p>
           </div>
           <span id="confidenceBadge" class="confidence-badge">Review required</span>
@@ -224,7 +228,7 @@
             </button>
 
             <button id="saveButton" class="button button-primary" type="submit">
-              Save to Spreadsheet
+              Save Application
             </button>
           </div>
 
@@ -232,13 +236,12 @@
         </form>
       </section>
 
-      <!-- Recent records are shown from this browser session only.
-           A future backend/Supabase version can load these from persistent storage. -->
+      <!-- Applications are loaded from Supabase for the current user. -->
       <section class="panel">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">RECENTLY SAVED</p>
-            <h2>This session</h2>
+            <p class="eyebrow">YOUR APPLICATIONS</p>
+            <h2>Recently tracked</h2>
           </div>
         </div>
 
@@ -255,7 +258,7 @@
             </thead>
             <tbody id="recentJobsBody">
               <tr class="empty-row">
-                <td colspan="5">No jobs saved during this session yet.</td>
+                <td colspan="5">Sign in to load your applications.</td>
               </tr>
             </tbody>
           </table>
@@ -264,8 +267,8 @@
     </main>
   </div>
 
-  <!-- Google Identity Services -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Supabase JavaScript client for this static Cloudflare frontend. -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
 </body>
 </html>
