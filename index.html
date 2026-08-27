@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="A simple job application tracker that extracts job posting details and saves them to Google Sheets."
+  />
+  <title>ApplyTrack | Job Application Tracker</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- ======================================================
+       LOGIN SCREEN
+       Later, Supabase Auth can replace or supplement this UI.
+       Google OAuth is still needed to access each user's Sheet.
+       ====================================================== -->
+  <main id="loginScreen" class="login-screen">
+    <section class="login-card">
+      <div class="brand brand-centered">
+        <div class="brand-mark">A</div>
+        <span>ApplyTrack</span>
+      </div>
+
+      <div class="login-copy">
+        <p class="eyebrow">JOB APPLICATION TRACKER</p>
+        <h1>Keep every application in one place.</h1>
+        <p class="muted">
+          Sign in with Google to connect your account and create or access
+          your personal application spreadsheet.
+        </p>
+      </div>
+
+      <button id="googleLoginButton" class="button google-button" type="button">
+        <span class="google-icon">G</span>
+        Continue with Google
+      </button>
+
+      <p id="loginStatus" class="status-message" aria-live="polite"></p>
+
+      <p class="small-print">
+        Your Google access token is kept in memory for this session. Supabase
+        user authentication can be added later without changing the tracker UI.
+      </p>
+    </section>
+  </main>
+
+  <!-- ======================================================
+       MAIN APPLICATION
+       Hidden until the user authenticates with Google.
+       ====================================================== -->
+  <div id="appShell" class="app-shell hidden">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">A</div>
+        <span>ApplyTrack</span>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="account-chip">
+          <div id="userAvatar" class="avatar">U</div>
+          <div class="account-copy">
+            <strong id="userName">Google User</strong>
+            <span id="userEmail">Connected</span>
+          </div>
+        </div>
+
+        <button id="logoutButton" class="button button-secondary" type="button">
+          Sign out
+        </button>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">APPLICATION WORKSPACE</p>
+          <h1>Track a new opportunity.</h1>
+          <p class="muted hero-copy">
+            Paste a job posting URL. ApplyTrack will send it to your parser,
+            return the detected information, and let you correct anything
+            before saving it to your Google Sheet.
+          </p>
+        </div>
+
+        <div class="sheet-card">
+          <span class="sheet-label">Connected spreadsheet</span>
+          <strong id="sheetName">Not connected yet</strong>
+          <a
+            id="sheetLink"
+            href="#"
+            target="_blank"
+            rel="noreferrer"
+            class="text-link hidden"
+          >
+            Open in Google Sheets
+          </a>
+        </div>
+      </section>
+
+      <!-- URL extraction input -->
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">STEP 1</p>
+            <h2>Paste a job posting</h2>
+          </div>
+          <span class="step-pill">URL → Extract → Review → Save</span>
+        </div>
+
+        <form id="extractForm" class="extract-form">
+          <label for="jobUrl">Job posting URL</label>
+
+          <div class="url-row">
+            <input
+              id="jobUrl"
+              name="jobUrl"
+              type="url"
+              placeholder="https://company.com/careers/software-engineer"
+              autocomplete="url"
+              required
+            />
+
+            <button id="extractButton" class="button button-primary" type="submit">
+              Extract
+            </button>
+          </div>
+
+          <p id="extractStatus" class="status-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <!-- Editable extraction results -->
+      <section id="resultPanel" class="panel hidden">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">STEP 2</p>
+            <h2>Review extracted details</h2>
+            <p class="muted">
+              Everything below is editable before it is written to your spreadsheet.
+            </p>
+          </div>
+          <span id="confidenceBadge" class="confidence-badge">Review required</span>
+        </div>
+
+        <form id="jobForm" class="job-form">
+          <div class="field-grid">
+            <div class="field">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text" required />
+            </div>
+
+            <div class="field">
+              <label for="position">Position</label>
+              <input id="position" name="position" type="text" required />
+            </div>
+
+            <div class="field">
+              <label for="location">Location</label>
+              <input id="location" name="location" type="text" />
+            </div>
+
+            <div class="field">
+              <label for="salary">Salary</label>
+              <input id="salary" name="salary" type="text" placeholder="Optional" />
+            </div>
+
+            <div class="field">
+              <label for="status">Application status</label>
+              <select id="status" name="status">
+                <option value="Saved">Saved</option>
+                <option value="Applied">Applied</option>
+                <option value="Interview">Interview</option>
+                <option value="Offer">Offer</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Withdrawn">Withdrawn</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="dateApplied">Date applied</label>
+              <input id="dateApplied" name="dateApplied" type="date" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="source">Source</label>
+            <input
+              id="source"
+              name="source"
+              type="text"
+              placeholder="LinkedIn, Greenhouse, company site..."
+            />
+          </div>
+
+          <div class="field">
+            <label for="notes">Notes</label>
+            <textarea
+              id="notes"
+              name="notes"
+              rows="4"
+              placeholder="Referral, recruiter contact, interview details, follow-up notes..."
+            ></textarea>
+          </div>
+
+          <div class="review-url">
+            <span>Original URL</span>
+            <a id="reviewUrl" href="#" target="_blank" rel="noreferrer"></a>
+          </div>
+
+          <div class="form-actions">
+            <button id="cancelButton" class="button button-secondary" type="button">
+              Cancel
+            </button>
+
+            <button id="saveButton" class="button button-primary" type="submit">
+              Save to Spreadsheet
+            </button>
+          </div>
+
+          <p id="saveStatus" class="status-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <!-- Recent records are shown from this browser session only.
+           A future backend/Supabase version can load these from persistent storage. -->
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">RECENTLY SAVED</p>
+            <h2>This session</h2>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>Position</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody id="recentJobsBody">
+              <tr class="empty-row">
+                <td colspan="5">No jobs saved during this session yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="app.js"></script>
+</body>
+</html>
